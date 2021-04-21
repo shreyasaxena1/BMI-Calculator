@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reuseable_card.dart';
+import 'constants.dart';
 
 //define at top
-const heightOfBottomContainer = 80.0;
-const activeCardColor = Color(0xFF1D1E33);
-const inactiveCardColor = Color(0xFF111328);
-const colorOfBottomContainer = Color(0xFFEB1555);
 enum GenderEnum { male, female }
 
 class InputPage extends StatefulWidget {
@@ -16,8 +13,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-
   GenderEnum selectedGender;
+  int height = 180;
 
   //define both separately because we need to set onTap colors
   //Color maleCardColor = inactiveCardColor;
@@ -43,8 +40,6 @@ class _InputPageState extends State<InputPage> {
   //   }
   // }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,62 +47,110 @@ class _InputPageState extends State<InputPage> {
           title: Text('BMI CALCULATOR'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
                 child: Row(
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: Reuseablecard(
+                    onTapping: () {
                       setState(() {
                         selectedGender = GenderEnum.male;
                       });
                     },
-                    child: Reuseablecard(
-                      colour: selectedGender == GenderEnum.male ? activeCardColor : inactiveCardColor,
-                      carChild: IconContent(
-                          genderText: 'MALE',
-                          genderIcon: FontAwesomeIcons.mars),
-                    ),
+                    colour: selectedGender == GenderEnum.male
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    carChild: IconContent(
+                        genderText: 'MALE', genderIcon: FontAwesomeIcons.mars),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: Reuseablecard(
+                    onTapping: () {
                       setState(() {
                         selectedGender = GenderEnum.female;
                       });
                     },
-                    child: Reuseablecard(
-                      colour: selectedGender==GenderEnum.female ? activeCardColor : inactiveCardColor,
-                      carChild: IconContent(
-                        genderText: 'FEMALE',
-                        genderIcon: FontAwesomeIcons.venus,
-                      ),
+                    colour: selectedGender == GenderEnum.female
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    carChild: IconContent(
+                      genderText: 'FEMALE',
+                      genderIcon: FontAwesomeIcons.venus,
                     ),
                   ),
                 ),
               ],
             )),
             Expanded(
-              child: Reuseablecard(colour: activeCardColor),
+              child: Reuseablecard(
+                colour: kActiveCardColor,
+                carChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'HEIGHT',
+                      style: kLabelTextStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: <Widget>[
+                        Text(
+                          height.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Text(
+                          'cm',
+                          style: kLabelTextStyle,
+                        )
+                      ],
+                    ),
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        thumbColor: Color(0xFFEB1555),
+                        activeTrackColor: Colors.white,
+                        inactiveTrackColor : Color(0xFF8D8E98),
+                        overlayColor: Color(0x29EB1555),
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30.0),
+                      ),
+                      child: Slider(
+                        value: height.toDouble(),
+                        min: 120,
+                        max: 220,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
             Expanded(
                 child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Reuseablecard(colour: activeCardColor),
+                  child: Reuseablecard(colour: kActiveCardColor),
                 ),
                 Expanded(
-                  child: Reuseablecard(colour: activeCardColor),
+                  child: Reuseablecard(colour: kActiveCardColor),
                 ),
               ],
             )),
             Container(
-              color: colorOfBottomContainer,
+              color: kColorOfBottomContainer,
               margin: EdgeInsets.only(top: 10.0),
               width: double.infinity,
-              height: heightOfBottomContainer,
+              height: kHeightOfBottomContainer,
             )
           ],
         ));
