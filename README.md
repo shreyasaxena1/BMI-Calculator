@@ -3,9 +3,9 @@
 
 # BMI Calculator 💪
 
-This project consist on creating an App that calculates BMI ( Body Mass Index ) & then report its status </br>
+This project consist on creating an App that calculates BMI ( Body Mass Index ) & then report its status. </br>
 
-In this project I tried to simplify all the process using the most simple formula & deviding the BMI state into just 3 categories...
+In this project I tried to simplify all the process using the most simple formula & dividing the BMI state into just 3 categories...
 
 BMI Formulat : bmi= weight (kg) / ( height^2 (m))
 
