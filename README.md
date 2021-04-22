@@ -1,7 +1,5 @@
 
 
-# -- Under Construction !!! --
-
 
 # BMI Calculator 💪
 
