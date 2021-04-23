@@ -1,6 +1,5 @@
 
 
-
 # BMI Calculator 💪
 
 This project consist on creating an App that calculates BMI ( Body Mass Index ) & then report its status. </br>
